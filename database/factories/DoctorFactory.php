@@ -17,7 +17,6 @@ class DoctorFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'clinics' => fake()->name(),
         ];
     }
 }

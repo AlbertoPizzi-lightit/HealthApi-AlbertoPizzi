@@ -18,7 +18,6 @@ class ClinicFactory extends Factory
         return [
             'name' => fake()->streetName(),
             'address' => fake()->address(),
-            'doctors' => fake()->randomDigit(),
         ];
     }
 }

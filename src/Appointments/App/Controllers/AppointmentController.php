@@ -6,5 +6,4 @@ namespace Lightit\Appointments\App\Controllers;
 
 class AppointmentController
 {
-    //
 }

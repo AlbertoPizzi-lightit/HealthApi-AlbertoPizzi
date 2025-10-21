@@ -6,5 +6,4 @@ namespace Lightit\Clinics\App\Controllers;
 
 class ClinicController
 {
-    //
 }

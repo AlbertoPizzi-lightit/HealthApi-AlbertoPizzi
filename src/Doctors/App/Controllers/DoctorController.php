@@ -6,5 +6,4 @@ namespace Lightit\Doctors\App\Controllers;
 
 class DoctorController
 {
-    //
 }

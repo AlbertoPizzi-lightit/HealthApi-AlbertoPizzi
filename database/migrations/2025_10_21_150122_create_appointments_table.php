@@ -12,11 +12,11 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('doctor');
-            $table->string('patient');
-            $table->string('clinic');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->foreignId('doctor_id');
+            $table->foreignId('patient_id');
+            $table->foreignId('clinic_id');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->timestamps();
         });
     }

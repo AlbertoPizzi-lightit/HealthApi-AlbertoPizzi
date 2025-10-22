@@ -16,11 +16,11 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'doctor' => fake()->name(),
-            'patient' => fake()->name(),
-            'clinic' => fake()->name(),
-            'start_time' => fake()->time(),
-            'end_time' => fake()->time(),
+            'doctor_id' => DoctorFactory::new(),
+            'patient_id' => UserFactory::new(),
+            'clinic_id' => ClinicFactory::new(),
+            'start_time' => fake()->dateTime(),
+            'end_time' => fake()->dateTime(),
         ];
     }
 }

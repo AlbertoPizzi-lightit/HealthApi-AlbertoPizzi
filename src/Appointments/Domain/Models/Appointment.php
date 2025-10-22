@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment wherePatient($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment whereStartTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment whereUpdatedAt($value)
+ * @property int $doctor_id
+ * @property int $patient_id
+ * @property int $clinic_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment whereDoctorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Appointment wherePatientId($value)
  * @mixin \Eloquent
  */
 class Appointment extends Model

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Users;
 
-
 use Database\Factories\ClinicFactory;
 use function Pest\Laravel\getJson;
 

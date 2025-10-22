@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Feature\Clinics;
@@ -10,7 +11,6 @@ use Lightit\Clinics\App\Resources\ClinicResource;
 use function Pest\Laravel\getJson;
 
 describe('clinics', function (): void {
-
     /** @see GetClinicController */
 
     it('retrieves a clinic and returns a successful response', function (): void {
@@ -35,4 +35,3 @@ describe('clinics', function (): void {
         getJson("api/clinics/{$nonExistentClinicId}")->assertNotFound();
     });
 });
-

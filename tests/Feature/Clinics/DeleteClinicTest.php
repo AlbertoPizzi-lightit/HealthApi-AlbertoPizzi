@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Feature\Clinics;
-
 
 use Database\Factories\ClinicFactory;
 use function Pest\Laravel\assertDatabaseMissing;
@@ -25,4 +25,3 @@ describe('clinics', function (): void {
         deleteJson("api/clinics/$nonExistentClinicId")->assertNotFound();
     });
 });
-

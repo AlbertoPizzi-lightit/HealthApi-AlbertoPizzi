@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lightit\Appointments\Domain\Models;
 
 use Carbon\CarbonImmutable;
+use DateTime;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -43,7 +44,7 @@ class Appointment extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array<dateTime, dateTime>
      */
     protected function casts(): array
     {

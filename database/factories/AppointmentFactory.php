@@ -17,10 +17,11 @@ class AppointmentFactory extends Factory
     {
         return [
             'doctor_id' => DoctorFactory::new(),
-            'patient_id' => UserFactory::new(),
+            'user_id' => UserFactory::new(),
             'clinic_id' => ClinicFactory::new(),
-            'start_time' => fake()->dateTime(),
-            'end_time' => fake()->dateTime(),
-        ];
+            'start_time' => fake()->dateTimeBetween('+1 week', '+3 weeks'),
+            'end_time' => function (array $attributes) {
+                return fake()->dateTimeBetween($attributes['start_time'], '+1 hour');
+            }];
     }
 }

@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                       $address
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic query()
@@ -22,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Clinic extends Model

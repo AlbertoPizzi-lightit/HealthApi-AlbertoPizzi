@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Lightit\Clinics\App\Controllers;
+
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Lightit\Clinics\App\Requests\UpsertClinicRequest;
@@ -12,12 +14,15 @@ use Lightit\Clinics\Domain\Models\Clinic;
 #[Group('Clinics')]
 final readonly class UpdateClinicController
 {
- public function __invoke(Clinic $clinic, UpsertClinicRequest $request, UpdateClinicAction $updateClinicAction): JsonResponse
- {
-     $clinic = $updateClinicAction->execute($clinic, $request->toDto());
+    public function __invoke(
+        Clinic $clinic,
+        UpsertClinicRequest $request,
+        UpdateClinicAction $updateClinicAction,
+    ): JsonResponse {
+        $clinic = $updateClinicAction->execute($clinic, $request->toDto());
 
-     return ClinicResource::make($clinic)
-         ->response()
-         ->setStatusCode(JsonResponse::HTTP_OK);
- }
+        return ClinicResource::make($clinic)
+            ->response()
+            ->setStatusCode(JsonResponse::HTTP_OK);
+    }
 }

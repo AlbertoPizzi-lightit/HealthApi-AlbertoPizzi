@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lightit\Clinics\App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,7 +17,7 @@ class UpsertClinicRequest extends FormRequest
     {
         return [
             self::NAME => ['required', 'string', 'min:4', 'max:80'],
-            self::ADDRESS => ['required', 'string', 'min:4', 'max:80']
+            self::ADDRESS => ['required', 'string', 'min:4', 'max:80'],
         ];
     }
 

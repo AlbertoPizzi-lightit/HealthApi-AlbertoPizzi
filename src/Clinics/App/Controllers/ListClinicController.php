@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Lightit\Clinics\App\Controllers;
+
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Lightit\Clinics\App\Resources\ClinicResource;

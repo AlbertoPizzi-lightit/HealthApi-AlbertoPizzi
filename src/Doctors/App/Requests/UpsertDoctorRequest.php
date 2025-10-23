@@ -11,7 +11,6 @@ class UpsertDoctorRequest extends FormRequest
 {
     public const string NAME = 'name';
 
-
     public function rules(): array
     {
         return [

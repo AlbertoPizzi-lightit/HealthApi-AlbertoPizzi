@@ -19,7 +19,7 @@ describe('clinics', function (): void {
         assertDatabaseMissing('clinics', ['id' => $existingClinic->id]);
     });
 
-    it('returns a 404 response when user is not found', function (): void {
+    it('returns a 404 response when clinic is not found', function (): void {
         $nonExistentClinicId = 99999;
 
         deleteJson("api/clinics/$nonExistentClinicId")->assertNotFound();

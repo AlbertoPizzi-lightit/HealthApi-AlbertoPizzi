@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lightit\Doctors\Domain\Actions;
 
 use Lightit\Doctors\Domain\DataTransferObjects\DoctorDto;
@@ -12,6 +14,7 @@ class StoreDoctorAction
         $doctor = new Doctor();
         $doctor->name = $doctorDto->name;
         $doctor->save();
+
         return $doctor;
     }
 }

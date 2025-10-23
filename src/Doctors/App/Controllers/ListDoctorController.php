@@ -11,7 +11,7 @@ use Lightit\Doctors\Domain\Actions\ListDoctorAction;
 
 #[Group('Doctors')]
 
-class ListDoctorController
+final readonly class ListDoctorController
 {
     public function __invoke(ListDoctorAction $action): JsonResponse
     {

@@ -19,6 +19,8 @@ use Lightit\Clinics\App\Controllers\{DeleteClinicController,
 use Lightit\Doctors\App\Controllers\DeleteDoctorController;
 use Lightit\Doctors\App\Controllers\GetDoctorController;
 use Lightit\Doctors\App\Controllers\ListDoctorController;
+use Lightit\Doctors\App\Controllers\StoreDoctorController;
+use Lightit\Doctors\App\Controllers\UpdateDoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,4 +80,6 @@ Route::prefix('doctors')
        Route::get('/{doctor}', GetDoctorController::class);
        Route::get('/', ListDoctorController::class);
        Route::delete('/{doctor}', DeleteDoctorController::class);
+       Route::post('/', StoreDoctorController::class);
+       Route::put('/{doctor}', UpdateDoctorController::class);
     });

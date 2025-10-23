@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Lightit\Clinics\Domain\Models\Clinic;
+
+/**
+ * @extends Factory<\Lightit\Clinics\Domain\Models\Clinic>
+ */
+class ClinicFactory extends Factory
+{
+    protected $model = Clinic::class;
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->company(),
+            'address' => fake()->address(),
+        ];
+    }
+}

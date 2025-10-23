@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property CarbonImmutable|null $end_time
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
+ *
  * @method static Builder<static>|Appointment newModelQuery()
  * @method static Builder<static>|Appointment newQuery()
  * @method static Builder<static>|Appointment query()
@@ -32,8 +33,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder<static>|Appointment whereClinicId($value)
  * @method static Builder<static>|Appointment whereDoctorId($value)
  * @method static Builder<static>|Appointment wherePatientId($value)
+ *
  * @property int $user_id
+ *
  * @method static Builder<static>|Appointment whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class Appointment extends Model

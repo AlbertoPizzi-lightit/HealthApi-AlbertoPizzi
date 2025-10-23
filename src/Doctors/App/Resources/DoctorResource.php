@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Lightit\Doctors\App\Resources;
+
 use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

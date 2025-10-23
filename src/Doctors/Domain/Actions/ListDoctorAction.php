@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Lightit\Doctors\Domain\Actions;
 
-use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Lightit\Doctors\Domain\Models\Doctor;
 use Spatie\QueryBuilder\QueryBuilder;
+
 class ListDoctorAction
 {
     /**

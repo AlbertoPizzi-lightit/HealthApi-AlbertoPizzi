@@ -16,7 +16,6 @@ class ListClinicAction
     public function execute(): LengthAwarePaginator
     {
         return QueryBuilder::for(Clinic::class)
-            ->allowedFilters(['address'])
             ->allowedSorts('name')
             ->paginate();
     }

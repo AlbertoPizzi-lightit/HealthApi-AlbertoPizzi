@@ -15,6 +15,7 @@ describe('clinics', function (): void {
     /** @see StoreClinicController */
     it(description: 'can create a clinic successfully', closure: function (): void {
         $data = StoreClinicRequestFactory::new()->create();
+//        $data = StoreClinicRequestFactory::new()->create(['name' => 'hil']);
 
         $response = postJson(url('/api/clinics'), $data);
 

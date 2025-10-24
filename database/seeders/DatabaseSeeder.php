@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
        $users = UserFactory::new()->createMany(35);
        $doctors = DoctorFactory::new()->createMany(35);
        $clinics = ClinicFactory::new()->createMany(35);
-       AppointmentFactory::new()->createMany(20);
-//        AppointmentFactory::new()->recycle($doctors, $users , $clinics);
+        AppointmentFactory::new()->recycle($doctors, $users , $clinics)->createMany(30);
     }
 }

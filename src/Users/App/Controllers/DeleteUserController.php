@@ -8,6 +8,7 @@ use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Lightit\Users\Domain\Models\User;
 
+
 #[Group('Users')]
 final readonly class DeleteUserController
 {

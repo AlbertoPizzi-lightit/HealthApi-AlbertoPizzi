@@ -22,7 +22,6 @@ final readonly class UpdateClinicController
         $clinic = $updateClinicAction->execute($clinic, $request->toDto());
 
         return ClinicResource::make($clinic)
-            ->response()
-            ->setStatusCode(JsonResponse::HTTP_OK);
+            ->response();
     }
 }

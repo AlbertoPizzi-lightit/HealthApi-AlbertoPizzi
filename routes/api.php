@@ -41,7 +41,6 @@ Route::middleware('auth:sanctum')
 |--------------------------------------------------------------------------
 */
 Route::prefix('users')
-    ->middleware([])
     ->group(static function (): void {
         Route::get('/', ListUserController::class);
         Route::post('/', StoreUserController::class);

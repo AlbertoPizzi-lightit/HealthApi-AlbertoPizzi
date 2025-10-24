@@ -22,7 +22,6 @@ final readonly class UpdateDoctorController
         $doctor = $updateDoctorAction->execute($doctor, $request->toDto());
 
         return DoctorResource::make($doctor)
-            ->response()
-            ->setStatusCode(JsonResponse::HTTP_OK);
+            ->response();
     }
 }

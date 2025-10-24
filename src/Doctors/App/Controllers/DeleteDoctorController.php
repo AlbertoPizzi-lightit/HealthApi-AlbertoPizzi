@@ -15,6 +15,6 @@ final readonly class DeleteDoctorController
     {
         $doctor->delete();
 
-        return response()->json();
+        return response()->json(JsonResponse::HTTP_NO_CONTENT);
     }
 }

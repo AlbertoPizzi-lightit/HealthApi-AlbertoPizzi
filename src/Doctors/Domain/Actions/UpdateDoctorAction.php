@@ -12,7 +12,7 @@ class UpdateDoctorAction
     public function execute(Doctor $doctor, DoctorDto $doctorDto): Doctor
     {
         $doctor->name = $doctorDto->name;
-        $doctor->save();
+        $doctor->saveOrFail();
 
         return $doctor;
     }

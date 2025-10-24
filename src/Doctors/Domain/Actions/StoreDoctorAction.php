@@ -13,7 +13,7 @@ class StoreDoctorAction
     {
         $doctor = new Doctor();
         $doctor->name = $doctorDto->name;
-        $doctor->save();
+        $doctor->saveOrFail();
 
         return $doctor;
     }

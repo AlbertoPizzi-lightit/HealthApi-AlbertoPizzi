@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Lightit\Appointments\Domain\Models;
 
 use Carbon\CarbonImmutable;
-use DateTime;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

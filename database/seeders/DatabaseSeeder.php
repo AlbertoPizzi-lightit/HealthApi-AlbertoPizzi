@@ -20,9 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       $users = UserFactory::new()->createMany(35);
-       $doctors = DoctorFactory::new()->createMany(35);
-       $clinics = ClinicFactory::new()->createMany(35);
-        AppointmentFactory::new()->recycle($doctors, $users , $clinics)->createMany(30);
+        $users = UserFactory::new()->createMany(35);
+        $clinics = ClinicFactory::new()->createMany(35);
+        $doctors = DoctorFactory::new()->createMany(35)
+            ->each(function ($doctor) use ($clinics) {
+                $doctor->clinics()->attach($clinics->random(),
+                    ['created_at' => now(), 'updated_at' => now()]);
+            });
+        AppointmentFactory::new()->recycle($doctors, $users, $clinics)->createMany(30);
     }
 }

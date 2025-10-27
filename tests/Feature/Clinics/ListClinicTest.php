@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Users;
+namespace Tests\Feature\Clinics;
 
 use Database\Factories\ClinicFactory;
 use function Pest\Laravel\getJson;
@@ -10,7 +10,7 @@ use function Pest\Laravel\getJson;
 describe('clinics', function (): void {
     /** @see ListClinicController */
 
-    it('can list users successfully', function (): void {
+    it('can list clinics successfully', function (): void {
         $clinics = ClinicFactory::new()
             ->createMany(5);
 

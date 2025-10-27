@@ -9,7 +9,6 @@ use Lightit\Clinics\Domain\Models\Clinic;
 
 class StoreClinicAction
 {
-
     public function execute(ClinicDto $clinicDto): Clinic
     {
         $clinic = new Clinic();

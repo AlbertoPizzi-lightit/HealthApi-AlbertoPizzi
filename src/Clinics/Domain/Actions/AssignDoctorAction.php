@@ -8,7 +8,7 @@ use Lightit\Clinics\Domain\Models\Clinic;
 
 class AssignDoctorAction
 {
-    public function execute(Clinic $clinic, int $doctorId):void
+    public function execute(Clinic $clinic, int $doctorId): void
     {
         $clinic->doctors()->attach($doctorId);
     }

@@ -36,6 +36,9 @@ class Clinic extends Model
      */
     public function doctors(): BelongsToMany
     {
-        return $this->belongsToMany(Doctor::class);
+        return $this->belongsToMany(Doctor::class)
+            ->withPivot(['doctor_id'])
+            ->withTimestamps();
+
     }
 }

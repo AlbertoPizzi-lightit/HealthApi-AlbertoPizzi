@@ -6,6 +6,7 @@ namespace Tests\Feature\Doctors;
 
 use Database\Factories\DoctorFactory;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Lightit\Clinics\App\Resources\ClinicResource;
 use Lightit\Doctors\App\Controllers\GetDoctorController;
 use Lightit\Doctors\App\Resources\DoctorResource;
 use function Pest\Laravel\getJson;
@@ -19,13 +20,7 @@ describe('doctors', function (): void {
         getJson("api/doctors/$existingDoctor->id")
             ->assertOk()
             ->assertJson(
-                fn (AssertableJson $json): AssertableJson =>
-                $json->has(
-                    'data',
-                    fn (AssertableJson $json): AssertableJson => $json->whereAll(
-                        DoctorResource::make($existingDoctor)->resolve()
-                    )
-                )
+                DoctorResource::make($existingDoctor)->response()->getData(true)
             );
     });
 

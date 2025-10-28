@@ -24,8 +24,7 @@ class DatabaseSeeder extends Seeder
         $clinics = ClinicFactory::new()->createMany(35);
         $doctors = DoctorFactory::new()->createMany(35)
             ->each(function ($doctor) use ($clinics) {
-                $doctor->clinics()->attach($clinics->random(),
-                    ['created_at' => now(), 'updated_at' => now()]);
+                $doctor->clinics()->attach($clinics->random());
             });
         AppointmentFactory::new()->recycle($doctors, $users, $clinics)->createMany(30);
     }

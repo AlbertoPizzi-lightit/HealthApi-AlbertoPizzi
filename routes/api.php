@@ -10,12 +10,13 @@ use Lightit\Users\App\Controllers\{GetUserController,
     StoreUserController,
     UpdateUserController
 };
-use Lightit\Clinics\App\Controllers\{DeleteClinicController,
+use Lightit\Clinics\App\Controllers\{AssignDoctorToClinicController,
+    DeleteClinicController,
     GetClinicController,
     ListClinicController,
     StoreClinicController,
-    UpdateClinicController
-};
+    UpdateClinicController};
+use Lightit\Doctors\App\Controllers\AssignClinicToDoctorController;
 use Lightit\Doctors\App\Controllers\DeleteDoctorController;
 use Lightit\Doctors\App\Controllers\GetDoctorController;
 use Lightit\Doctors\App\Controllers\ListDoctorController;
@@ -72,6 +73,8 @@ Route::prefix('clinics')
                     ->whereNumber('clinic');
                 Route::delete('/', DeleteClinicController::class)
                     ->whereNumber('clinic');
+                Route::post('/', AssignDoctorToClinicController::class)
+                    ->whereNumber('clinic');
             });
     });
 
@@ -87,5 +90,7 @@ Route::prefix('doctors')
                ->whereNumber('doctor');
                Route::get('/', GetDoctorController::class)
                ->whereNumber('doctor');
+               Route::post('/', AssignClinicToDoctorController::class)
+                   ->whereNumber('doctor');
            });
     });

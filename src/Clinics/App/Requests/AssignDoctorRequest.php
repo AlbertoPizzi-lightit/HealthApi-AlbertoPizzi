@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Lightit\Doctors\Domain\Models\Doctor;
 
-class AssignDoctorRequest extends FormRequest
+final class AssignDoctorRequest extends FormRequest
 {
     public const string DOCTOR_ID = 'doctor_id';
 
@@ -17,5 +17,8 @@ class AssignDoctorRequest extends FormRequest
         return [
             self::DOCTOR_ID => ['required', 'integer', Rule::exists(Doctor::class, 'id')],
         ];
+    }
+    public function getDoctorId(): int{
+        return $this->integer(self::DOCTOR_ID);
     }
 }

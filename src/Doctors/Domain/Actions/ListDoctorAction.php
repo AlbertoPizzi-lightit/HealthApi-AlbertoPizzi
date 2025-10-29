@@ -18,7 +18,6 @@ class ListDoctorAction
         return QueryBuilder::for(Doctor::class)
             ->allowedFilters(['name'])
             ->allowedSorts('name')
-            ->allowedIncludes(['clinics'])
             ->with('clinics')
             ->paginate();
     }

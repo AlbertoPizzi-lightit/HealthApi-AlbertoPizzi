@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Lightit\Clinics\Domain\Models\Clinic;
 
-class AssignClinicRequest extends FormRequest
+final class AssignClinicRequest extends FormRequest
 {
     public const string CLINIC_ID = 'clinic_id';
 
@@ -17,5 +17,8 @@ class AssignClinicRequest extends FormRequest
         return [
             self::CLINIC_ID => ['required', 'integer', Rule::exists(Clinic::class, 'id')],
         ];
+    }
+    public function getClinicId(): int{
+        return $this->integer(self::CLINIC_ID);
     }
 }

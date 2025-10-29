@@ -7,7 +7,7 @@ namespace Lightit\Doctors\App\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Lightit\Doctors\Domain\DataTransferObjects\DoctorDto;
 
-class UpsertDoctorRequest extends FormRequest
+final class UpsertDoctorRequest extends FormRequest
 {
     public const string NAME = 'name';
 

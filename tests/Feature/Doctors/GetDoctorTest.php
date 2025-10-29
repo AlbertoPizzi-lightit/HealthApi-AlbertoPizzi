@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Doctors;
 
 use Database\Factories\DoctorFactory;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Lightit\Doctors\App\Controllers\GetDoctorController;
 use Lightit\Doctors\App\Resources\DoctorResource;
 use Lightit\Doctors\Domain\Models\Doctor;
@@ -16,11 +17,16 @@ describe('doctors', function (): void {
     it('retrieves a doctor and returns a successful response', function (): void {
         /** @var Doctor $existingDoctor */
         $existingDoctor = DoctorFactory::new()->createOne();
-        /** @var array $data */
-        $data = DoctorResource::make($existingDoctor)->response()->getData(true);
         getJson("api/doctors/$existingDoctor->id")
             ->assertOk()
-            ->assertJson($data);
+            ->assertJson(
+                fn(AssertableJson $json): AssertableJson => $json->has(
+                    'data',
+                    fn(AssertableJson $json): AssertableJson => $json->whereAll(
+                        DoctorResource::make($existingDoctor)->resolve()
+                    )
+                )
+            );
     });
 
     it('returns a 404 response when doctor is not found', closure: function (): void {

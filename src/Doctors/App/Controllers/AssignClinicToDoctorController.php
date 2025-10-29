@@ -14,11 +14,10 @@ use Lightit\Doctors\Domain\Models\Doctor;
 final class AssignClinicToDoctorController
 {
     public function __invoke(
-        Doctor              $doctor,
+        Doctor $doctor,
         AssignClinicRequest $request,
-        AssignClinicAction  $assignClinicAction,
-    ): JsonResponse
-    {
+        AssignClinicAction $assignClinicAction,
+    ): JsonResponse {
         $assignClinicAction->execute($doctor, $request->getClinicId());
 
         return response()->json(null, JsonResponse::HTTP_NO_CONTENT);

@@ -20,9 +20,9 @@ describe('doctors', function (): void {
         getJson("api/doctors/$existingDoctor->id")
             ->assertOk()
             ->assertJson(
-                fn(AssertableJson $json): AssertableJson => $json->has(
+                fn (AssertableJson $json): AssertableJson => $json->has(
                     'data',
-                    fn(AssertableJson $json): AssertableJson => $json->whereAll(
+                    fn (AssertableJson $json): AssertableJson => $json->whereAll(
                         DoctorResource::make($existingDoctor)->resolve()
                     )
                 )

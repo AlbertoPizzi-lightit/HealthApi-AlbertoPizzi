@@ -18,7 +18,9 @@ final class AssignClinicRequest extends FormRequest
             self::CLINIC_ID => ['required', 'integer', Rule::exists(Clinic::class, 'id')],
         ];
     }
-    public function getClinicId(): int{
+
+    public function getClinicId(): int
+    {
         return $this->integer(self::CLINIC_ID);
     }
 }

@@ -18,7 +18,9 @@ final class AssignDoctorRequest extends FormRequest
             self::DOCTOR_ID => ['required', 'integer', Rule::exists(Doctor::class, 'id')],
         ];
     }
-    public function getDoctorId(): int{
+
+    public function getDoctorId(): int
+    {
         return $this->integer(self::DOCTOR_ID);
     }
 }

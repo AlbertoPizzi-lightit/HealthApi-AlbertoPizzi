@@ -18,7 +18,7 @@ final class AssignDoctorToClinicController
         AssignDoctorRequest $request,
         AssignDoctorAction $assignDoctorAction,
     ): JsonResponse {
-        $assignDoctorAction->execute($clinic, $request->integer(AssignDoctorRequest::DOCTOR_ID));
+        $assignDoctorAction->execute($clinic, $request->getDoctorId());
 
         return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }

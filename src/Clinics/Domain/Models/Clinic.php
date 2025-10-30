@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Lightit\Clinics\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Lightit\Doctors\Domain\Models\Doctor;
 
 /**
  * @property int                          $id
@@ -23,9 +25,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Clinic whereUpdatedAt($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Doctor> $doctors
+ * @property-read int|null $doctors_count
+ *
  * @mixin \Eloquent
  */
 class Clinic extends Model
 {
     protected $guarded = ['id'];
+
+    /**
+     * @return BelongsToMany<Doctor, $this>
+     */
+    public function doctors(): BelongsToMany
+    {
+        return $this->belongsToMany(Doctor::class)
+            ->withTimestamps();
+    }
 }

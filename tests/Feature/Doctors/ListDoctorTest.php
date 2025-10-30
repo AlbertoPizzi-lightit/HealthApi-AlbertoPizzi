@@ -14,7 +14,6 @@ describe('doctors', function (): void {
     it('can list doctors successfully', function (): void {
         $doctors = DoctorFactory::new()
             ->createMany(5);
-
         getJson(url('/api/doctors'))
             ->assertSuccessful()
             ->assertJsonCount(5, 'data');

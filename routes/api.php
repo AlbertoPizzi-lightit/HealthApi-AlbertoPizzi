@@ -24,6 +24,9 @@ use Lightit\Doctors\App\Controllers\{AssignClinicToDoctorController,
     StoreDoctorController,
     UpdateDoctorController
 };
+use Lightit\Authentication\App\Controllers\LoginController;
+use Lightit\Authentication\App\Controllers\LogoutController;
+use Lightit\Authentication\App\Controllers\RefreshController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +51,7 @@ Route::middleware('auth:sanctum')
 | Users Routes
 |--------------------------------------------------------------------------
 */
+
 Route::prefix('users')
     ->group(static function (): void {
         Route::get('/', ListUserController::class);
@@ -60,6 +64,11 @@ Route::prefix('users')
         })
             ->whereNumber('user');
     });
+/*
+|--------------------------------------------------------------------------
+| Clinics Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::prefix('clinics')
     ->group(static function (): void {
@@ -75,6 +84,12 @@ Route::prefix('clinics')
             ->whereNumber('clinic');
     });
 
+/*
+|--------------------------------------------------------------------------
+| Doctors Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::prefix('doctors')
     ->group(static function (): void {
         Route::get('/', ListDoctorController::class);
@@ -88,3 +103,14 @@ Route::prefix('doctors')
             })
             ->whereNumber('doctor');
     });
+/*
+|--------------------------------------------------------------------------
+| Login Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('auth')->group(static function (): void {
+    Route::post('login', LoginController::class);
+    Route::post('logout', LogoutController::class);
+    Route::post('refresh', RefreshController::class);
+});

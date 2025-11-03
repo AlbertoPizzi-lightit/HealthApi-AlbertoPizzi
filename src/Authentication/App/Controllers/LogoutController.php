@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Lightit\Authentication\App\Controllers;
 
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Lightit\Authentication\Domain\Actions\LogoutAction;
 use Lightit\Models\JWTAuthenticatable;
 use Lightit\Shared\App\Exceptions\Http\UnauthorizedException;
 
+#[Group('auth')]
 class LogoutController
 {
     public function __invoke(Request $request, LogoutAction $logoutAction): Response

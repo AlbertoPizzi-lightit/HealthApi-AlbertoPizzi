@@ -12,7 +12,6 @@ class LoginController
 {
     public function __invoke(LoginRequest $request, LoginAction $loginAction): JsonResponse
     {
-
         $credentials = $request->only([LoginRequest::EMAIL, LoginRequest::PASSWORD]);
 
         $loginDto = $loginAction->execute($credentials);

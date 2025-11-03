@@ -15,8 +15,8 @@ use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 final readonly class LoginAction
 {
     public function __construct(
-        private readonly AuthFactory $factory,
-        private readonly JWTAuth $jwtAuth,
+        private AuthFactory $factory,
+        private JWTAuth $jwtAuth,
     ) {
     }
 

@@ -8,6 +8,12 @@ use Carbon\CarbonImmutable;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Lightit\Clinics\Domain\Models\Clinic;
+use Lightit\Doctors\Domain\Models\Doctor;
+use Lightit\Users\Domain\Models\User;
 
 /**
  * @property int                  $id
@@ -51,4 +57,26 @@ class Appointment extends Model
             'end_time' => 'immutable_datetime',
         ];
     }
+
+    /**
+     * @return HasOne<Clinic, $this>
+     */
+    public function clinics():HasOne{
+        return $this->hasOne(Clinic::class);
+    }
+
+    /**
+     * @return HasOne<Doctor , $this>
+     */
+    public function doctors():HasOne{
+        return $this->hasOne(Doctor::class);
+    }
+
+    /**
+     * @return BelongsToMany<User , $this>
+     */
+    public function users():BelongsToMany{
+        return $this->belongsToMany(User::class);
+    }
+
 }

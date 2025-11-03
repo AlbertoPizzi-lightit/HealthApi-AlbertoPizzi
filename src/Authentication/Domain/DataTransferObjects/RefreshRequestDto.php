@@ -7,7 +7,7 @@ namespace Lightit\Authentication\Domain\DataTransferObjects;
 use PHPOpenSourceSaver\JWTAuth\Factory as JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\JWT;
 
-class RefreshRequestDto
+readonly class RefreshRequestDto
 {
     public function __construct(
         public JWTAuth $jwtAuth,

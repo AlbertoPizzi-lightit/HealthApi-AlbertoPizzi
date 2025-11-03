@@ -16,13 +16,14 @@ class RefreshController
 {
     public function __invoke(JWTAuth $jwtAuth, JWT $jwt): JsonResponse
     {
-       $refreshRequestDto = $this->toDto($jwtAuth , $jwt);
+        $refreshRequestDto = $this->toDto($jwtAuth, $jwt);
 
         return RefreshResource::make($refreshRequestDto)
             ->response();
     }
 
-    public function toDto(JWTAuth $jwtAuth, JWT $jwt) : RefreshRequestDto{
+    public function toDto(JWTAuth $jwtAuth, JWT $jwt): RefreshRequestDto
+    {
         return new RefreshRequestDto(
             $jwtAuth,
             $jwt

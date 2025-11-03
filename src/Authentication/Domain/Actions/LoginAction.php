@@ -12,7 +12,7 @@ use Lightit\Users\Domain\Models\User;
 use PHPOpenSourceSaver\JWTAuth\Factory as JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 
-final class LoginAction
+final readonly class LoginAction
 {
     public function __construct(
         private readonly AuthFactory $factory,

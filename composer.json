@@ -115,5 +115,11 @@
     }
   },
   "minimum-stability": "stable",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Light-it-labs/lightit-auth-laravel.git"
+    }
+  ]
 }

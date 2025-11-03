@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3628b7022ef108bcec4dc9ca32b5b455",
+    "content-hash": "6cb010450d0c69b1bbf31016d23d8ef9",
     "packages": [
         {
             "name": "brick/math",
@@ -2323,12 +2323,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "aliases": {
-                        "Lightit": "Lightit\\Facades\\Lightit"
-                    },
                     "providers": [
                         "Lightit\\LightitServiceProvider"
-                    ]
+                    ],
+                    "aliases": {
+                        "Lightit": "Lightit\\Facades\\Lightit"
+                    }
                 }
             },
             "autoload": {
@@ -2337,7 +2337,50 @@
                     "Lightit\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Lightit\\Tests\\": "tests/",
+                    "Workbench\\App\\": "workbench/app/"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@composer run prepare"
+                ],
+                "prepare": [
+                    "@php vendor/bin/testbench package:discover --ansi"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ],
+                "ecs": [
+                    "vendor/bin/ecs"
+                ],
+                "ecs:fix": [
+                    "vendor/bin/ecs --fix"
+                ],
+                "phpstan": [
+                    "vendor/bin/phpstan analyse --memory-limit=1G"
+                ],
+                "phpstan:baseline": [
+                    "vendor/bin/phpstan analyse --memory-limit=4G --generate-baseline"
+                ],
+                "rector": [
+                    "vendor/bin/rector process --dry-run --ansi"
+                ],
+                "rector:fix": [
+                    "vendor/bin/rector process --ansi"
+                ],
+                "fixer": [
+                    "composer ecs:fix && composer phpstan && composer rector:fix"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -2367,12 +2410,12 @@
             "homepage": "https://github.com/light-it-labs/lightit-auth-laravel",
             "keywords": [
                 "2fa",
-                "Laravel Auth",
                 "Light-it Labs",
                 "auth",
                 "google sso",
                 "jwt",
                 "laravel",
+                "laravel auth",
                 "laravel authentication",
                 "lightit",
                 "otp",
@@ -2382,13 +2425,13 @@
                 "two factor auth"
             ],
             "support": {
-                "issues": "https://github.com/Light-it-labs/lightit-auth-laravel/issues",
-                "source": "https://github.com/Light-it-labs/lightit-auth-laravel/tree/1.1.0"
+                "source": "https://github.com/Light-it-labs/lightit-auth-laravel/tree/1.1.0",
+                "issues": "https://github.com/Light-it-labs/lightit-auth-laravel/issues"
             },
             "funding": [
                 {
-                    "url": "https://github.com/Light-it Labs",
-                    "type": "github"
+                    "type": "github",
+                    "url": "https://github.com/Light-it Labs"
                 }
             ],
             "time": "2025-07-04T15:46:25+00:00"

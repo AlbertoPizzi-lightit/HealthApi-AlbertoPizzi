@@ -24,6 +24,7 @@ use Lightit\Doctors\App\Controllers\{AssignClinicToDoctorController,
     StoreDoctorController,
     UpdateDoctorController
 };
+use Lightit\Appointments\App\Controllers\GetAppointmentController;
 use Lightit\Authentication\App\Controllers\LoginController;
 use Lightit\Authentication\App\Controllers\LogoutController;
 use Lightit\Authentication\App\Controllers\RefreshController;
@@ -115,4 +116,14 @@ Route::prefix('auth')->group(static function (): void {
 Route::prefix('auth')->middleware('auth:api')->group(static function (): void {
     Route::post('logout', LogoutController::class);
     Route::post('refresh', RefreshController::class);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Appointment Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('appointments')->group(static function (): void {
+    Route::get('/', GetAppointmentController::class);
 });

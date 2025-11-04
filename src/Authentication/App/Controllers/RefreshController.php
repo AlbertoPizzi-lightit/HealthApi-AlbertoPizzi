@@ -21,5 +21,4 @@ class RefreshController
         return RefreshResource::make($refreshRequestDto)
             ->response();
     }
-
 }

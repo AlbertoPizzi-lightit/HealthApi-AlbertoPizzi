@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('clinic_id')->constrained();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

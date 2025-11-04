@@ -8,9 +8,7 @@ use Carbon\CarbonImmutable;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Lightit\Clinics\Domain\Models\Clinic;
 use Lightit\Doctors\Domain\Models\Doctor;
 use Lightit\Users\Domain\Models\User;
@@ -18,7 +16,7 @@ use Lightit\Users\Domain\Models\User;
 /**
  * @property int                  $id
  * @property int                  $doctor_id
- * @property int                  $patient_id
+ * @property int                  $user_id
  * @property int                  $clinic_id
  * @property CarbonImmutable|null $start_time
  * @property CarbonImmutable|null $end_time
@@ -39,9 +37,6 @@ use Lightit\Users\Domain\Models\User;
  * @method static Builder<static>|Appointment whereClinicId($value)
  * @method static Builder<static>|Appointment whereDoctorId($value)
  * @method static Builder<static>|Appointment wherePatientId($value)
- *
- * @property int $user_id
- *
  * @method static Builder<static>|Appointment whereUserId($value)
  *
  * @mixin Eloquent
@@ -50,6 +45,30 @@ class Appointment extends Model
 {
     protected $guarded = ['id'];
 
+    /**
+     * @return BelongsTo<Clinic, $this>
+     */
+    public function clinic(): BelongsTo
+    {
+        return $this->belongsTo(Clinic::class);
+    }
+
+    /**
+     * @return BelongsTo<Doctor, $this>
+     */
+    public function doctor(): BelongsTo
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected function casts(): array
     {
         return [
@@ -57,26 +76,4 @@ class Appointment extends Model
             'end_time' => 'immutable_datetime',
         ];
     }
-
-    /**
-     * @return HasOne<Clinic, $this>
-     */
-    public function clinics():HasOne{
-        return $this->hasOne(Clinic::class);
-    }
-
-    /**
-     * @return HasOne<Doctor , $this>
-     */
-    public function doctors():HasOne{
-        return $this->hasOne(Doctor::class);
-    }
-
-    /**
-     * @return BelongsToMany<User , $this>
-     */
-    public function users():BelongsToMany{
-        return $this->belongsToMany(User::class);
-    }
-
 }

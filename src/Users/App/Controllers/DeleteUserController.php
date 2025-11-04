@@ -15,6 +15,6 @@ final readonly class DeleteUserController
     {
         $user->delete();
 
-        return response()->json();
+        return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }
 }

@@ -43,6 +43,10 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  *
  * @mixin \Illuminate\Database\Eloquent\Model
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Appointment> $appointments
+ * @property-read int|null $appointments_count
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements JWTSubject

@@ -5,18 +5,19 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Lightit\Appointments\Domain\Models\Appointment;
 
 return new class extends Migration {
     public function up(): void
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('clinic_id')->constrained();
             $table->foreignId('doctor_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('clinic_id')->constrained();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('confirmed');
             $table->timestamps();
         });
     }

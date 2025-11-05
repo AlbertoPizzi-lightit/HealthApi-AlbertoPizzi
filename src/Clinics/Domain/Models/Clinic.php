@@ -29,6 +29,8 @@ use Lightit\Doctors\Domain\Models\Doctor;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Doctor> $doctors
  * @property-read int|null $doctors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Appointment> $appointments
+ * @property-read int|null $appointments_count
  *
  * @mixin \Eloquent
  */

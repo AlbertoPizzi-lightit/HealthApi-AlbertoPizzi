@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Support\Facades\Route;
-use Lightit\Users\App\Controllers\{GetUserController,
+use Lightit\Users\App\Controllers\{CancelMyAppointmentController,
+    GetMyAppointmentsController,
+    GetUserController,
     DeleteUserController,
+    ListUserAppointmentsController,
     ListUserController,
+    StoreUserAppointmentController,
     StoreUserController,
     UpdateUserController
 };
@@ -25,6 +29,7 @@ use Lightit\Doctors\App\Controllers\{AssignClinicToDoctorController,
     UpdateDoctorController
 };
 use Lightit\Appointments\App\Controllers\GetAppointmentController;
+use Lightit\Appointments\App\Controllers\ListAppointmentController;
 use Lightit\Authentication\App\Controllers\LoginController;
 use Lightit\Authentication\App\Controllers\LogoutController;
 use Lightit\Authentication\App\Controllers\RefreshController;
@@ -64,6 +69,12 @@ Route::prefix('users')
             Route::delete('/', DeleteUserController::class);
         })
             ->whereNumber('user');
+        Route::get('/me/appointments', GetMyAppointmentsController::class)
+            ->middleware(['auth:api']);
+        Route::delete('/me/appointments/{appointment}', CancelMyAppointmentController::class)
+            ->middleware(['auth:api']);
+        Route::post('/me/appointments', StoreUserAppointmentController::class)
+            ->middleware(['auth:api']);
     });
 /*
 |--------------------------------------------------------------------------
@@ -125,5 +136,10 @@ Route::prefix('auth')->middleware('auth:api')->group(static function (): void {
 */
 
 Route::prefix('appointments')->group(static function (): void {
-    Route::get('/', GetAppointmentController::class);
+    Route::prefix('{appointment}')
+        ->group(static function (): void {
+            Route::get('/', GetAppointmentController::class);
+        })
+        ->whereNumber('appointment');
+    Route::get('/', ListAppointmentController::class);
 });

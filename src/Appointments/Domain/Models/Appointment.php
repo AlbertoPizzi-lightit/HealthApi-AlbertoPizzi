@@ -9,6 +9,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Clinics\Domain\Models\Clinic;
 use Lightit\Doctors\Domain\Models\Doctor;
 use Lightit\Users\Domain\Models\User;
@@ -38,6 +39,13 @@ use Lightit\Users\Domain\Models\User;
  * @method static Builder<static>|Appointment whereDoctorId($value)
  * @method static Builder<static>|Appointment wherePatientId($value)
  * @method static Builder<static>|Appointment whereUserId($value)
+ *
+ * @property AppointmentStatus $status
+ * @property-read Clinic $clinic
+ * @property-read Doctor $doctor
+ * @property-read User $user
+ *
+ * @method static Builder<static>|Appointment whereStatus($value)
  *
  * @mixin Eloquent
  */
@@ -74,6 +82,7 @@ class Appointment extends Model
         return [
             'start_time' => 'immutable_datetime',
             'end_time' => 'immutable_datetime',
+            'status' => AppointmentStatus::class,
         ];
     }
 }

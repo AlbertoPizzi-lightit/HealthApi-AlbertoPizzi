@@ -27,6 +27,8 @@ use Lightit\Clinics\Domain\Models\Clinic;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Clinic> $clinics
  * @property-read int|null $clinics_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Appointment> $appointments
+ * @property-read int|null $appointments_count
  *
  * @mixin \Eloquent
  */

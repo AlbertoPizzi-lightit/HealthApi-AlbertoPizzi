@@ -7,6 +7,7 @@ namespace Lightit\Users\App\Resources;
 use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Lightit\Appointments\App\Resources\AppointmentResource;
 use Lightit\Users\Domain\Models\User;
 
 /**
@@ -21,6 +22,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email_address' => $this->email,
+            'appointments' => AppointmentResource::collection($this->whenLoaded('appointments')),
         ];
     }
 }

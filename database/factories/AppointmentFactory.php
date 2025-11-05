@@ -7,7 +7,9 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Appointments\Domain\Models\Appointment;
+use Lightit\Users\Domain\Models\User;
 
 /**
  * @extends Factory<Appointment>
@@ -28,7 +30,11 @@ class AppointmentFactory extends Factory
             /** @var DateTime $startTime */
                     $startTime = $attributes['start_time'];
                     return (clone $startTime)->modify('+1 hour');
-        }
+        },
+            'status' => AppointmentStatus::Confirmed,
         ];
+    }
+    public function forUser(UserFactory|User $user ): self{
+        return $this->for($user, 'user');
     }
 }

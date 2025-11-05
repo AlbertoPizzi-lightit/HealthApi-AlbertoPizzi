@@ -6,9 +6,11 @@ namespace Lightit\Appointments\Domain\Models;
 
 use Carbon\CarbonImmutable;
 use Eloquent;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Lightit\Appointments\App\Policies\AppointmentPolicy;
 use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Clinics\Domain\Models\Clinic;
 use Lightit\Doctors\Domain\Models\Doctor;
@@ -49,6 +51,7 @@ use Lightit\Users\Domain\Models\User;
  *
  * @mixin Eloquent
  */
+#[UsePolicy(AppointmentPolicy::class)]
 class Appointment extends Model
 {
     protected $guarded = ['id'];

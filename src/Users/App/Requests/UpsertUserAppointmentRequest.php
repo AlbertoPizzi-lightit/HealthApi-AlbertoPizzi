@@ -25,7 +25,6 @@ class UpsertUserAppointmentRequest extends FormRequest
 
     public const string END_TIME = 'end_time';
 
-    public const string STATUS = 'status';
 
     public function rules(): array
     {
@@ -35,23 +34,7 @@ class UpsertUserAppointmentRequest extends FormRequest
             self::CLINIC_ID => ['required', 'integer', Rule::exists(Clinic::class, 'id')],
             self::START_TIME => ['required', 'date', 'after:now'],
             self::END_TIME => ['required', 'date', 'after:start_time'],
-            self::STATUS => ['default', 'value' => AppointmentStatus::Confirmed ->value],
             ];
-    }
-
-    public function getDoctorId(): int
-    {
-        return $this->integer(self::DOCTOR_ID);
-    }
-
-    public function getUserId(): int
-    {
-        return $this->integer(self::USER_ID);
-    }
-
-    public function getClinicId(): int
-    {
-        return $this->integer(self::CLINIC_ID);
     }
 
     public function toDto(): AppointmentDto
@@ -66,9 +49,9 @@ class UpsertUserAppointmentRequest extends FormRequest
         $endsAt = $this->date(self::END_TIME)?->toImmutable();
 
         return new AppointmentDto(
-            userId: $this->string(self::USER_ID)->toInteger(),
-            doctorId: $this->string(self::DOCTOR_ID)->toInteger(),
-            clinicId: $this->string(self::CLINIC_ID)->toInteger(),
+            userId: $this->integer(self::USER_ID),
+            doctorId: $this->integer(self::DOCTOR_ID),
+            clinicId: $this->integer(self::CLINIC_ID),
             startTime: $startsAt,
             endTime: $endsAt,
         );

@@ -6,7 +6,7 @@ namespace Lightit\Appointments\Domain\DataTransferObjects;
 
 use Carbon\CarbonImmutable;
 
-class AppointmentDto
+readonly class AppointmentDto
 {
     public function __construct(
         public int $userId,

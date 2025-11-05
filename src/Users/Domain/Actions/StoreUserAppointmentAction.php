@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Lightit\Users\Domain\Actions;
 
+use Illuminate\Database\Eloquent\Builder;
 use Lightit\Appointments\Domain\DataTransferObjects\AppointmentDto;
 use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Appointments\Domain\Models\Appointment;
 use Lightit\Doctors\Domain\Models\Doctor;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Lightit\Users\App\Exceptions\AppointmentTimeOverlapsException;
+use Lightit\Users\App\Exceptions\ClinicDoctorRelationException;
 
 class StoreUserAppointmentAction
 {
@@ -24,6 +26,7 @@ class StoreUserAppointmentAction
         $appointment->clinic_id = $appointmentDto->clinicId;
         $appointment->start_time = $appointmentDto->startTime;
         $appointment->end_time = $appointmentDto->endTime;
+        $appointment->status = AppointmentStatus::Confirmed;
 
         $appointment->saveOrFail();
 
@@ -35,7 +38,7 @@ class StoreUserAppointmentAction
     {
         $doctor = Doctor::query()->findOrFail($appointmentDto->doctorId);
         if (! $doctor->clinics()->where('clinic_id', $appointmentDto->clinicId)->exists()) {
-            throw new BadRequestHttpException();
+            throw new ClinicDoctorRelationException();
         }
     }
 
@@ -43,14 +46,14 @@ class StoreUserAppointmentAction
     {
         $appointmentFound = Appointment::query()->where('start_time', '<=', $appointmentDto->startTime)
             ->where('end_time', '>=', $appointmentDto->endTime)
-            ->where(function (\Illuminate\Contracts\Database\Query\Builder $query) use ($appointmentDto): void {
+            ->where(function (Builder $query) use ($appointmentDto): void {
                 $query->where('doctor_id', '=', $appointmentDto->doctorId)
                     ->orWhere('user_id', '=', $appointmentDto->userId);
             })
-            ->where('status', '=', AppointmentStatus::Confirmed->value);
+            ->where('status', AppointmentStatus::Confirmed);
 
         if ($appointmentFound->exists()) {
-            throw new BadRequestHttpException();
+            throw new AppointmentTimeOverlapsException();
         }
     }
 }

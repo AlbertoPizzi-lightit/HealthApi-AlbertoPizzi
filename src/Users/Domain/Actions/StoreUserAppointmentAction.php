@@ -36,8 +36,8 @@ class StoreUserAppointmentAction
 
     private function doctorClinicValidator(AppointmentDto $appointmentDto): void
     {
-        $doctor = Doctor::query()->findOrFail($appointmentDto->doctorId);
-        if (! $doctor->clinics()->where('clinic_id', $appointmentDto->clinicId)->exists()) {
+        $doctorWorksInClinic = Doctor::query()->findOrFail($appointmentDto->doctorId);
+        if (! $doctorWorksInClinic->clinics()->where('clinic_id', $appointmentDto->clinicId)->exists()) {
             throw new ClinicDoctorRelationException();
         }
     }

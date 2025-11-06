@@ -11,7 +11,7 @@ class AppointmentTimeOverlapsException extends HttpException
 {
     protected int $status = JsonResponse::HTTP_CONFLICT;
 
-    protected string $errorCode = 'Time_Overlaps_Error';
+    protected string $errorCode = 'time_overlaps_error';
 
     protected $message = 'This overlaps with another appointment';
 }

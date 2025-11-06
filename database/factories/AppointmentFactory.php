@@ -26,15 +26,17 @@ class AppointmentFactory extends Factory
             'clinic_id' => ClinicFactory::new(),
             'start_time' => $this->faker->dateTimeBetween('next Monday', 'next Monday +7 days'),
             'end_time' =>
-                function (array $attributes) {
+                function (array $attributes)
+                {
             /** @var DateTime $startTime */
                     $startTime = $attributes['start_time'];
                     return (clone $startTime)->modify('+1 hour');
-        },
+                },
             'status' => AppointmentStatus::Confirmed,
         ];
     }
-    public function forUser(UserFactory|User $user ): self{
+    public function forUser(UserFactory|User $user ): self
+    {
         return $this->for($user, 'user');
     }
 }

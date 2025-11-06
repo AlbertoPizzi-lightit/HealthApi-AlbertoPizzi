@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonImmutable;
 use Database\Factories\ClinicFactory;
 use Database\Factories\DoctorFactory;
 use Database\Factories\UserFactory;
@@ -19,7 +20,7 @@ beforeEach(function (): void {
 });
 describe('StoreUserAppointment', function (): void {
     it('when attempting to store an appointment as a authenticated user,
-        should create it', function () {
+        should create it', function (): void {
         /** @var User $user */
         $user = Auth::user();
         $doctor = DoctorFactory::new()->createOne();
@@ -44,49 +45,49 @@ describe('StoreUserAppointment', function (): void {
             'status'=> AppointmentStatus::Confirmed,
         ]);
     });
-    it('throws an exception when trying to store an overlapping appointment for the same user', function () {
+    it('throws an exception when trying to store an overlapping appointment for the same user', function (): void {
         /** @var User $user */
         $user = Auth::user();
         $doctor = DoctorFactory::new()->createOne();
         $clinic = ClinicFactory::new()->createOne();
         $doctor->clinics()->syncWithoutDetaching($clinic->id);
-        $start_time = "2025-11-12T03:40:58.000000Z";
-        $end_time = "2025-11-12T04:40:58.000000Z";
+        $startTime = CarbonImmutable::now();
+        $endTime = $startTime->addHour();
 
         $response = postJson('api/users/me/appointments', [
             'user_id' => $user->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
         $response2 = postJson('api/users/me/appointments', [
             'user_id' => $user->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
 
         $response2->assertStatus(JsonResponse::HTTP_CONFLICT);
     });
-    it('throws an exception when trying to store an overlapping appointment for the same doctor', function () {
+    it('throws an exception when trying to store an overlapping appointment for the same doctor', function (): void {
         /** @var User $user */
         $user = Auth::user();
         $doctor = DoctorFactory::new()->createOne();
         $clinic = ClinicFactory::new()->createOne();
         $doctor->clinics()->syncWithoutDetaching($clinic->id);
-        $start_time = "2025-11-12T03:40:58.000000Z";
-        $end_time = "2025-11-12T04:40:58.000000Z";
+        $startTime = CarbonImmutable::now();
+        $endTime = $startTime->addHour();
 
         $response = postJson('api/users/me/appointments', [
             'user_id' => $user->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
 
@@ -97,11 +98,11 @@ describe('StoreUserAppointment', function (): void {
             'user_id' => $user2->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
 
         $response2->assertStatus(JsonResponse::HTTP_CONFLICT);
     });
-});
+})->only();

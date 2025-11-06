@@ -18,8 +18,8 @@ class StoreUserAppointmentAction
     {
         $appointment = new Appointment();
 
-        $this->doctorClinicValidator($appointmentDto);
-        $this->noOverlapValidator($appointmentDto);
+        $this->validateDoctorClinicAssociation($appointmentDto);
+        $this->validateAppointmentOverlap($appointmentDto);
 
         $appointment->user_id = $appointmentDto->userId;
         $appointment->doctor_id = $appointmentDto->doctorId;
@@ -34,25 +34,27 @@ class StoreUserAppointmentAction
         return $appointment;
     }
 
-    private function doctorClinicValidator(AppointmentDto $appointmentDto): void
+    private function validateDoctorClinicAssociation(AppointmentDto $appointmentDto): void
     {
-        $doctorWorksInClinic = Doctor::query()->findOrFail($appointmentDto->doctorId);
-        if (! $doctorWorksInClinic->clinics()->where('clinic_id', $appointmentDto->clinicId)->exists()) {
+        $doctor = Doctor::query()->findOrFail($appointmentDto->doctorId);
+        $doctorWorksInClinic = $doctor->clinics()->where('clinic_id', $appointmentDto->clinicId)->exists();
+
+        if (! $doctorWorksInClinic) {
             throw new ClinicDoctorRelationException();
         }
     }
 
-    private function noOverlapValidator(AppointmentDto $appointmentDto): void
+    private function validateAppointmentOverlap(AppointmentDto $appointmentDto): void
     {
-        $appointmentFound = Appointment::query()->where('start_time', '<=', $appointmentDto->startTime)
+        $overlappingAppointment = Appointment::query()->where('start_time', '<=', $appointmentDto->startTime)
             ->where('end_time', '>=', $appointmentDto->endTime)
             ->where(function (Builder $query) use ($appointmentDto): void {
-                $query->where('doctor_id', '=', $appointmentDto->doctorId)
-                    ->orWhere('user_id', '=', $appointmentDto->userId);
+                $query->where('doctor_id', $appointmentDto->doctorId)
+                    ->orWhere('user_id', $appointmentDto->userId);
             })
             ->where('status', AppointmentStatus::Confirmed);
 
-        if ($appointmentFound->exists()) {
+        if ($overlappingAppointment->exists()) {
             throw new AppointmentTimeOverlapsException();
         }
     }

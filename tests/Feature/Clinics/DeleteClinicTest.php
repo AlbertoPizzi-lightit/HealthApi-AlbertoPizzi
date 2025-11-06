@@ -14,7 +14,7 @@ describe('clinics', function (): void {
     it('deletes a clinic and returns a successful response', function (): void {
         $existingClinic = ClinicFactory::new()->createOne();
         $response = deleteJson("api/clinics/$existingClinic->id");
-        $response->assertOk();
+        $response->assertNoContent();
 
         assertDatabaseMissing('clinics', ['id' => $existingClinic->id]);
     });

@@ -6,6 +6,8 @@ namespace Lightit\Doctors\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Lightit\Appointments\Domain\Models\Appointment;
 use Lightit\Clinics\Domain\Models\Clinic;
 
 /**
@@ -25,6 +27,8 @@ use Lightit\Clinics\Domain\Models\Clinic;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Clinic> $clinics
  * @property-read int|null $clinics_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Appointment> $appointments
+ * @property-read int|null $appointments_count
  *
  * @mixin \Eloquent
  */
@@ -39,5 +43,13 @@ class Doctor extends Model
     {
         return $this->belongsToMany(Clinic::class)
             ->withTimestamps();
+    }
+
+    /**
+     * @return HasMany<Appointment, $this>
+     */
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

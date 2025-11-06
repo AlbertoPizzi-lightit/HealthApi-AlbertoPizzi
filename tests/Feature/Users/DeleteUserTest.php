@@ -14,7 +14,7 @@ describe('users', function (): void {
     it('deletes a user and returns a successful response', function (): void {
         $existingUser = UserFactory::new()->createOne();
         $response = deleteJson("api/users/$existingUser->id");
-        $response->assertOk();
+        $response->assertNoContent();
 
         assertDatabaseMissing('users', ['id' => $existingUser->id]);
     });

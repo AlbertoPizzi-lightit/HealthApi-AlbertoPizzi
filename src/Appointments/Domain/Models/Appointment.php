@@ -6,13 +6,20 @@ namespace Lightit\Appointments\Domain\Models;
 
 use Carbon\CarbonImmutable;
 use Eloquent;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Lightit\Appointments\App\Policies\AppointmentPolicy;
+use Lightit\Appointments\Domain\Enums\AppointmentStatus;
+use Lightit\Clinics\Domain\Models\Clinic;
+use Lightit\Doctors\Domain\Models\Doctor;
+use Lightit\Users\Domain\Models\User;
 
 /**
  * @property int                  $id
  * @property int                  $doctor_id
- * @property int                  $patient_id
+ * @property int                  $user_id
  * @property int                  $clinic_id
  * @property CarbonImmutable|null $start_time
  * @property CarbonImmutable|null $end_time
@@ -33,22 +40,52 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder<static>|Appointment whereClinicId($value)
  * @method static Builder<static>|Appointment whereDoctorId($value)
  * @method static Builder<static>|Appointment wherePatientId($value)
- *
- * @property int $user_id
- *
  * @method static Builder<static>|Appointment whereUserId($value)
+ *
+ * @property AppointmentStatus $status
+ * @property-read Clinic $clinic
+ * @property-read Doctor $doctor
+ * @property-read User $user
+ *
+ * @method static Builder<static>|Appointment whereStatus($value)
  *
  * @mixin Eloquent
  */
+#[UsePolicy(AppointmentPolicy::class)]
 class Appointment extends Model
 {
     protected $guarded = ['id'];
+
+    /**
+     * @return BelongsTo<Clinic, $this>
+     */
+    public function clinic(): BelongsTo
+    {
+        return $this->belongsTo(Clinic::class);
+    }
+
+    /**
+     * @return BelongsTo<Doctor, $this>
+     */
+    public function doctor(): BelongsTo
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     protected function casts(): array
     {
         return [
             'start_time' => 'immutable_datetime',
             'end_time' => 'immutable_datetime',
+            'status' => AppointmentStatus::class,
         ];
     }
 }

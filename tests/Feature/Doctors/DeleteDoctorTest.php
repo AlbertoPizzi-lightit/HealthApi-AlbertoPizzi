@@ -15,7 +15,7 @@ describe('doctors', function (): void {
     it('deletes a doctor and returns a successful response', function (): void {
         $existingDoctor = DoctorFactory::new()->createOne();
         $response = deleteJson("api/doctors/$existingDoctor->id");
-        $response->assertOk();
+        $response->assertNoContent();
 
         assertDatabaseMissing('doctors', ['id' => $existingDoctor->id]);
     });

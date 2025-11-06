@@ -15,6 +15,6 @@ final readonly class DeleteClinicController
     {
         $clinic->delete();
 
-        return response()->json(JsonResponse::HTTP_NO_CONTENT);
+        return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }
 }

@@ -8,7 +8,6 @@ use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Lightit\Appointments\Domain\DataTransferObjects\AppointmentDto;
-use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Clinics\Domain\Models\Clinic;
 use Lightit\Doctors\Domain\Models\Doctor;
 use Lightit\Users\Domain\Models\User;
@@ -25,15 +24,14 @@ class UpsertUserAppointmentRequest extends FormRequest
 
     public const string END_TIME = 'end_time';
 
-
     public function rules(): array
     {
         return [
             self::DOCTOR_ID => ['required', 'integer', Rule::exists(Doctor::class, 'id')],
             self::USER_ID => ['required', 'integer', Rule::exists(User::class, 'id')],
             self::CLINIC_ID => ['required', 'integer', Rule::exists(Clinic::class, 'id')],
-            self::START_TIME => ['required', 'date', 'after:now'],
-            self::END_TIME => ['required', 'date', 'after:start_time'],
+            self::START_TIME => ['required', Rule::date()->after(CarbonImmutable::now())],
+            self::END_TIME => ['required', Rule::date()->after(self::START_TIME)],
             ];
     }
 

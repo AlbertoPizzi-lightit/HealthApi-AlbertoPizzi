@@ -105,4 +105,4 @@ describe('StoreUserAppointment', function (): void {
 
         $response2->assertStatus(JsonResponse::HTTP_CONFLICT);
     });
-})->only();
+});

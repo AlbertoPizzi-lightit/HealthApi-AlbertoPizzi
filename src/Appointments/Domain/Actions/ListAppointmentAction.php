@@ -15,7 +15,6 @@ class ListAppointmentAction
      */
     public function execute(): LengthAwarePaginator
     {
-        return QueryBuilder::for(Appointment::class)
-            ->paginate();
+        return Appointment::query()->paginate();
     }
 }

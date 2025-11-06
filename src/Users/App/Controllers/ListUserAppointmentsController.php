@@ -11,7 +11,7 @@ use Lightit\Appointments\App\Resources\AppointmentResource;
 use Lightit\Users\Domain\Models\User;
 
 #[Group('Users')]
-final readonly class GetMyAppointmentsController
+final readonly class ListUserAppointmentsController
 {
     public function __invoke(#[CurrentUser] User $user): JsonResponse
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lightit\Users\App\Controllers;
 
 use Dedoc\Scramble\Attributes\Group;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Lightit\Appointments\Domain\Models\Appointment;
 use Lightit\Users\Domain\Actions\CancelUserAppointmentAction;
@@ -12,6 +13,10 @@ use Lightit\Users\Domain\Actions\CancelUserAppointmentAction;
 #[Group('Users')]
 final readonly class CancelMyAppointmentController
 {
+    /**
+     * @throws \Throwable
+     * @throws AuthorizationException
+     */
     public function __invoke(
         Appointment $appointment,
         CancelUserAppointmentAction $action,

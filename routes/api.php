@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Support\Facades\Route;
 use Lightit\Users\App\Controllers\{CancelMyAppointmentController,
-    GetMyAppointmentsController,
+    ListUserAppointmentsController,
     GetUserController,
     DeleteUserController,
     ListUserController,
@@ -68,12 +68,12 @@ Route::prefix('users')
             Route::delete('/', DeleteUserController::class);
         })
             ->whereNumber('user');
-        Route::get('/me/appointments', GetMyAppointmentsController::class)
-            ->middleware(['auth:api']);
-        Route::delete('/me/appointments/{appointment}', CancelMyAppointmentController::class)
-            ->middleware(['auth:api']);
-        Route::post('/me/appointments', StoreUserAppointmentController::class)
-            ->middleware(['auth:api']);
+        Route::prefix('me/appointments')->group(static function (): void {
+            Route::get('/', ListUserAppointmentsController::class);
+            Route::delete('/{appointment}', CancelMyAppointmentController::class);
+            Route::post('/', StoreUserAppointmentController::class);
+        })->middleware(['auth:api']);
+
     });
 /*
 |--------------------------------------------------------------------------

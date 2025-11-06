@@ -37,14 +37,12 @@ class UpsertUserAppointmentRequest extends FormRequest
 
     public function toDto(): AppointmentDto
     {
-        /**
-         * @var CarbonImmutable $startsAt
-         */
-        $startsAt = $this->date(self::START_TIME)?->toImmutable();
-        /**
-         * @var CarbonImmutable $endsAt
-         */
-        $endsAt = $this->date(self::END_TIME)?->toImmutable();
+        $startsAt = CarbonImmutable::parse(
+            $this->string(self::START_TIME)->toString()
+        );
+        $endsAt = CarbonImmutable::parse(
+            $this->string(self::END_TIME)->toString()
+        );
 
         return new AppointmentDto(
             userId: $this->integer(self::USER_ID),

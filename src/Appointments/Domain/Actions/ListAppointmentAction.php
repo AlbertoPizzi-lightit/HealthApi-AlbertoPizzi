@@ -6,7 +6,6 @@ namespace Lightit\Appointments\Domain\Actions;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Lightit\Appointments\Domain\Models\Appointment;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class ListAppointmentAction
 {

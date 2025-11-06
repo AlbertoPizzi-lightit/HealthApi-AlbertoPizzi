@@ -11,7 +11,7 @@ class ClinicDoctorRelationException extends HttpException
 {
     protected int $status = JsonResponse::HTTP_CONFLICT;
 
-    protected string $errorCode = 'Clinic_Doctor_Relation_Error';
+    protected string $errorCode = 'clinic_doctor_relation_error';
 
     protected $message = 'Doctor does not belong to this clinic';
 }

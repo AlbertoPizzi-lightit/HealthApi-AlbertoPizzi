@@ -35,7 +35,7 @@ class AppointmentFactory extends Factory
             'status' => AppointmentStatus::Confirmed,
         ];
     }
-    public function forUser(UserFactory|User $user ): self
+    public function forUser(User $user ): self
     {
         return $this->for($user, 'user');
     }

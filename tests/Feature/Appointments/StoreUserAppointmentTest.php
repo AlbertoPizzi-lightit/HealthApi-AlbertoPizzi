@@ -8,7 +8,9 @@ use Database\Factories\DoctorFactory;
 use Database\Factories\UserFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Lightit\Appointments\Domain\Enums\AppointmentStatus;
+use Lightit\Users\App\Notifications\UserAppointmentCreatedNotification;
 use Lightit\Users\Domain\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
@@ -17,6 +19,7 @@ use function Pest\Laravel\postJson;
 beforeEach(function (): void {
     $user = UserFactory::new()->createOne();
     actingAs($user);
+    Notification::fake();
 });
 describe('StoreUserAppointment', function (): void {
     it('when attempting to store an appointment as a authenticated user,
@@ -44,6 +47,8 @@ describe('StoreUserAppointment', function (): void {
             'end_time' => now()->addDay(),
             'status'=> AppointmentStatus::Confirmed,
         ]);
+
+        Notification::assertSentTo($user, UserAppointmentCreatedNotification::class);
     });
     it('throws an exception when trying to store an overlapping appointment for the same user', function (): void {
         /** @var User $user */

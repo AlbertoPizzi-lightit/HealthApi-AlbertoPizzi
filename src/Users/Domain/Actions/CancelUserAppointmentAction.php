@@ -8,6 +8,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Lightit\Appointments\Domain\Enums\AppointmentStatus;
 use Lightit\Appointments\Domain\Models\Appointment;
+use Lightit\Users\App\Notifications\UserAppointmentCancelledNotification;
+use Lightit\Users\Domain\Models\User;
 
 class CancelUserAppointmentAction
 {
@@ -23,6 +25,10 @@ class CancelUserAppointmentAction
         $appointment->status = AppointmentStatus::Cancelled;
 
         $appointment->saveOrFail();
+
+        $user = User::query()->findOrFail($appointment->user_id);
+        $user->notify(new UserAppointmentCancelledNotification());
+
 
         return $appointment;
     }

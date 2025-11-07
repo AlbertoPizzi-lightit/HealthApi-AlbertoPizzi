@@ -29,13 +29,15 @@ describe('StoreUserAppointment', function (): void {
         $doctor = DoctorFactory::new()->createOne();
         $clinic = ClinicFactory::new()->createOne();
         $doctor->clinics()->syncWithoutDetaching($clinic);
+        $startTime = CarbonImmutable::now();
+        $endTime = $startTime->addHour();
 
         $response = postJson('api/users/me/appointments', [
             'user_id' => $user->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => now(),
-            'end_time' => now()->addDay(),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ])
         ->assertCreated();
@@ -43,8 +45,8 @@ describe('StoreUserAppointment', function (): void {
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
             'user_id' => $user->id,
-            'start_time' => now(),
-            'end_time' => now()->addDay(),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
 

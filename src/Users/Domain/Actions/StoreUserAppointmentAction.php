@@ -32,9 +32,7 @@ class StoreUserAppointmentAction
 
         $appointment->saveOrFail();
 
-        $user = User::query()->findOrFail($appointmentDto->userId);
-        $user->notify(new UserAppointmentCreatedNotification());
-
+        $appointment->user->notify(new UserAppointmentCreatedNotification());
 
         return $appointment;
     }

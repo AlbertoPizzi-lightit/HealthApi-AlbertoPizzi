@@ -28,7 +28,7 @@ class UserAppointmentCreatedNotification extends Notification implements ShouldQ
         return new MailMessage()
             ->from('Alberto.pizzi@lightit.io', 'Ape')
             ->line("Dear, $notifiable->name, your appointment has been created successfully.")
-            ->action('Your appointments!', url('localhost/api/me/appointments'))
+            ->action('Your appointments!', url(''))
             ->line('Thank you for using our application!');
     }
 }

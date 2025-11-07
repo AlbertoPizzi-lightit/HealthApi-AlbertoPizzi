@@ -12,7 +12,6 @@ use Lightit\Doctors\Domain\Models\Doctor;
 use Lightit\Users\App\Exceptions\AppointmentTimeOverlapsException;
 use Lightit\Users\App\Exceptions\ClinicDoctorRelationException;
 use Lightit\Users\App\Notifications\UserAppointmentCreatedNotification;
-use Lightit\Users\Domain\Models\User;
 
 class StoreUserAppointmentAction
 {

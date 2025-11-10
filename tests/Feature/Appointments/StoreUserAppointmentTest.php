@@ -8,7 +8,9 @@ use Database\Factories\DoctorFactory;
 use Database\Factories\UserFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Lightit\Appointments\Domain\Enums\AppointmentStatus;
+use Lightit\Users\App\Notifications\UserAppointmentCreatedNotification;
 use Lightit\Users\Domain\Models\User;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
@@ -17,6 +19,7 @@ use function Pest\Laravel\postJson;
 beforeEach(function (): void {
     $user = UserFactory::new()->createOne();
     actingAs($user);
+    Notification::fake();
 });
 describe('StoreUserAppointment', function (): void {
     it('when attempting to store an appointment as a authenticated user,
@@ -26,13 +29,15 @@ describe('StoreUserAppointment', function (): void {
         $doctor = DoctorFactory::new()->createOne();
         $clinic = ClinicFactory::new()->createOne();
         $doctor->clinics()->syncWithoutDetaching($clinic);
+        $startTime = CarbonImmutable::now();
+        $endTime = $startTime->addHour();
 
         $response = postJson('api/users/me/appointments', [
             'user_id' => $user->id,
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
-            'start_time' => now(),
-            'end_time' => now()->addDay(),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ])
         ->assertCreated();
@@ -40,10 +45,12 @@ describe('StoreUserAppointment', function (): void {
             'doctor_id' => $doctor->id,
             'clinic_id' => $clinic->id,
             'user_id' => $user->id,
-            'start_time' => now(),
-            'end_time' => now()->addDay(),
+            'start_time' => $startTime,
+            'end_time' => $endTime,
             'status'=> AppointmentStatus::Confirmed,
         ]);
+
+        Notification::assertSentTo($user, UserAppointmentCreatedNotification::class);
     });
     it('throws an exception when trying to store an overlapping appointment for the same user', function (): void {
         /** @var User $user */

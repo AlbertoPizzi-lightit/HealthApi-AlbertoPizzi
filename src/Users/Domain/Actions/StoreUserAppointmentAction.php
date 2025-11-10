@@ -11,6 +11,7 @@ use Lightit\Appointments\Domain\Models\Appointment;
 use Lightit\Doctors\Domain\Models\Doctor;
 use Lightit\Users\App\Exceptions\AppointmentTimeOverlapsException;
 use Lightit\Users\App\Exceptions\ClinicDoctorRelationException;
+use Lightit\Users\App\Notifications\UserAppointmentCreatedNotification;
 
 class StoreUserAppointmentAction
 {
@@ -30,6 +31,7 @@ class StoreUserAppointmentAction
 
         $appointment->saveOrFail();
 
+        $appointment->user->notify(new UserAppointmentCreatedNotification());
 
         return $appointment;
     }
